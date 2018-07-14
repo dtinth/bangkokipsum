@@ -8,6 +8,7 @@ function main() {
 
 function startApp(model) {
   let paragraphsLeft = 3
+  let nextParagraphIndex = 0
   /** @type {HTMLButtonElement} */
   const moreButton = document.querySelector('#more')
   function run() {
@@ -34,7 +35,9 @@ function startApp(model) {
    * @param {() => any} onFinish
    */
   function generateParagraph(onFinish) {
-    const generator = createGenerator()
+    const index = nextParagraphIndex++
+    const fixedHistory = index === 0 ? ['แอบ', 'มอง'] : []
+    const generator = createGenerator(fixedHistory)
     const p = document.createElement('p')
     let currentSentence
     let data = ''
@@ -73,13 +76,19 @@ function startApp(model) {
     frame()
   }
 
-  function createGenerator() {
+  function createGenerator(fixedHistory) {
+    const queue = fixedHistory.slice()
     let history = [-1]
     let wordCount = 0
     let sentenceLength = 0
     let targetSentenceLength = 0
 
     function generateNextToken() {
+      if (queue.length) {
+        const word = queue.shift()
+        history.push(model.words.indexOf(word))
+        return word
+      }
       if (!targetSentenceLength) {
         targetSentenceLength = 5 + Math.floor(Math.random() * 10)
       }
