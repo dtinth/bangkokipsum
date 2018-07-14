@@ -13,6 +13,7 @@ function startApp(model) {
   const moreButton = document.querySelector('#more')
   function run() {
     Object.assign(window, { model, createGenerator })
+    document.querySelector('#loading').remove()
     generateParagraph(callback)
     moreButton.addEventListener('click', function(e) {
       e.preventDefault()

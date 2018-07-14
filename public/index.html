@@ -6,6 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Bangkok Ipsum</title>
+  <script>
+    WebFontConfig = {
+      google: {
+        families: ['Questrial']
+      }
+    };
+    (function (d) {
+      var wf = d.createElement('script'), s = d.scripts[0];
+      wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+      wf.async = true;
+      s.parentNode.insertBefore(wf, s);
+    })(document);
+  </script>
   <style>
     @font-face {
       font-family: Noto Sans Thai;
@@ -37,11 +50,12 @@
     }
 
     .result {
-      font-family: Noto Sans Thai, sans-serif;
+      font-family: Noto Sans Thai, Questrial, sans-serif;
       font-size: 18px;
       line-height: 28px;
       max-width: 700px;
       margin: 0 auto;
+      padding: 0 1em;
     }
 
     h1 {
@@ -76,7 +90,9 @@
   <h1>Bangkok
     <strong>Ipsum</strong>
   </h1>
-  <div class="result" id="result"></div>
+  <div class="result" id="result">
+    <div id="loading">[Loading…]</div>
+  </div>
   <div class="footer">
     <button id="more" class="hide">Generate more</button>
   </div>
