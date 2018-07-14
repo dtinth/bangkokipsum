@@ -1,2 +1,86 @@
-<html>
-Bangkok Ipsum
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Bangkok Ipsum</title>
+  <style>
+    @font-face {
+      font-family: Noto Sans Thai;
+      src: url(NotoSansThai-Regular.ttf);
+    }
+
+    body {
+      color: #333;
+      background: #fff;
+    }
+
+    h1 {
+      font: bold 64px Questrial, sans-serif;
+      color: #f59;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAKCAYAAAEC1QTcAAAABGdBTUEAALGPC/xhBQAAABlJREFUCB1jYICD/0DAACbgQmAuE4ILYgEAXQEL93FJvGEAAAAASUVORK5CYII=);
+      image-rendering: pixelated;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .result {
+      font-family: Noto Sans Thai, sans-serif;
+      font-size: 18px;
+      line-height: 28px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    h1 strong {
+      color: #37f;
+    }
+
+    .footer {
+      text-align: center;
+      padding-bottom: 3em;
+    }
+
+    .footer button {
+      background: #de6;
+      padding: 0.5em 1em;
+      font: 24px Questrial, sans-serif;
+      border: 0;
+      border-radius: 100px;
+      cursor: pointer;
+    }
+
+    .hide {
+      visibility: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Bangkok
+    <strong>Ipsum</strong>
+  </h1>
+  <div class="result" id="result"></div>
+  <div class="footer">
+    <button id="more" class="hide">Generate more</button>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>
