@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Bangkok Ipsum</title>
+  <meta property="og:url" content="https://bangkokipsum.app" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bangkok Ipsum" />
+  <meta property="og:description" content="สร้างข้อความภาษาไทยมั่วๆ" />
   <script>
     WebFontConfig = {
       google: {
@@ -68,7 +72,7 @@
 
     .footer {
       text-align: center;
-      padding-bottom: 3em;
+      padding-bottom: 2em;
     }
 
     .footer button {
@@ -80,8 +84,19 @@
       cursor: pointer;
     }
 
+    .footer button:disabled {
+      background: #eee;
+      color: #999;
+      cursor: default;
+    }
+
     .hide {
       visibility: hidden;
+    }
+
+    .social {
+      text-align: center;
+      padding-bottom: 3em;
     }
   </style>
 </head>
@@ -90,11 +105,15 @@
   <h1>Bangkok
     <strong>Ipsum</strong>
   </h1>
-  <div class="result" id="result">
+  <div class="result fb-quotable" id="result">
     <div id="loading">[Loading…]</div>
   </div>
   <div class="footer">
     <button id="more" class="hide">Generate more</button>
+  </div>
+  <div id="social" class="social">
+    <div class="fb-like" data-href="https://bangkokipsum.app" data-layout="standard" data-action="like" data-size="small" data-show-faces="true"
+      data-share="true"></div>
   </div>
   <script src="main.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->

@@ -1,5 +1,4 @@
 // @ts-check
-
 function main() {
   fetch('idol64.json')
     .then(r => r.json())
@@ -9,6 +8,7 @@ function main() {
 function startApp(model) {
   let paragraphsLeft = 3
   let nextParagraphIndex = 0
+  let facebookInitialized
   /** @type {HTMLButtonElement} */
   const moreButton = document.querySelector('#more')
   function run() {
@@ -18,7 +18,7 @@ function startApp(model) {
     moreButton.addEventListener('click', function(e) {
       e.preventDefault()
       moreButton.blur()
-      moreButton.classList.add('hide')
+      moreButton.disabled = true
       paragraphsLeft = 3
       generateParagraph(callback)
     })
@@ -29,6 +29,12 @@ function startApp(model) {
       generateParagraph(callback)
     } else {
       moreButton.classList.remove('hide')
+      moreButton.disabled = false
+      document.querySelector('#social').classList.remove('hide')
+      if (!facebookInitialized) {
+        facebookInitialized = true
+        initializeFacebook()
+      }
     }
   }
 
@@ -156,6 +162,33 @@ function pick(weights) {
     if (current >= picked) return true
   })
   return out
+}
+
+function initializeFacebook() {
+  /** @type {any} */
+  var global = window
+
+  Object.assign(window, {
+    fbAsyncInit: function() {
+      global.FB.init({
+        appId: '207894113251376',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v3.0'
+      })
+    }
+  })
+  ;(function(d, s, id) {
+    var js,
+      fjs = d.getElementsByTagName(s)[0]
+    if (d.getElementById(id)) {
+      return
+    }
+    js = d.createElement(s)
+    js.id = id
+    js.src = 'https://connect.facebook.net/en_US/sdk.js'
+    fjs.parentNode.insertBefore(js, fjs)
+  })(document, 'script', 'facebook-jssdk')
 }
 
 main()
