@@ -97,6 +97,24 @@
     <button id="more" class="hide">Generate more</button>
   </div>
   <script src="main.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-59441941-5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-59441941-5');
+  </script>
+  <script>
+    document.querySelector('#more').addEventListener('click', function() {
+      gtag('event', 'click', {
+        'event_category': 'action',
+        'event_label': 'generate',
+        'value': 3
+      })
+    })
+  </script>
 </body>
 
 </html>
