@@ -43,7 +43,8 @@ function startApp(model) {
    */
   function generateParagraph(onFinish) {
     const index = nextParagraphIndex++
-    const fixedHistory = index === 0 ? ['แอบ', 'มอง'] : []
+    const seed = ['แอบ', 'มอง']
+    const fixedHistory = index === 0 ? seed : []
     const generator = createGenerator(fixedHistory)
     const p = document.createElement('p')
     let currentSentence
