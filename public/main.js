@@ -177,6 +177,7 @@ function initializeFacebook() {
         xfbml: true,
         version: 'v3.0'
       })
+      initializeQuotingSystem()
     }
   })
   ;(function(d, s, id) {
@@ -187,9 +188,49 @@ function initializeFacebook() {
     }
     js = d.createElement(s)
     js.id = id
+    // @ts-ignore
     js.src = 'https://connect.facebook.net/en_US/sdk.js'
     fjs.parentNode.insertBefore(js, fjs)
   })(document, 'script', 'facebook-jssdk')
+}
+
+function initializeQuotingSystem() {
+  /** @type {any} */
+  var global = window
+
+  let textToShare = ''
+
+  /** @type {HTMLButtonElement} */
+  const shareButton = document.querySelector('#share-quote')
+
+  document.addEventListener('selectionchange', function(event) {
+    const result = document.querySelector('#result')
+    /** @type {HTMLButtonElement} */
+    const shareContainer = document.querySelector('#share')
+    const selection = window.getSelection()
+    if (
+      result.contains(selection.anchorNode) &&
+      result.contains(selection.focusNode) &&
+      selection.toString().trim()
+    ) {
+      shareContainer.classList.add('shareable')
+      shareButton.disabled = false
+      textToShare = selection.toString()
+    } else {
+      shareContainer.classList.remove('shareable')
+    }
+  })
+
+  shareButton.addEventListener('click', () => {
+    global.FB.ui(
+      {
+        method: 'share',
+        href: 'https://bangkokipsum.app/',
+        quote: textToShare
+      },
+      function(response) {}
+    )
+  })
 }
 
 main()

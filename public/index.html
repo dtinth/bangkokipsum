@@ -90,6 +90,32 @@
       cursor: default;
     }
 
+    .share button {
+      position: fixed;
+      white-space: nowrap;
+      top: 0.5em;
+      left: 0;
+      transform: translateX(50vw) translateX(-50%);
+      background: #4267b2;
+      padding: 0.5em 1em;
+      font: 24px Questrial, sans-serif;
+      border: 0;
+      border-radius: 100px;
+      cursor: pointer;
+      color: white;
+      transition: 0.4s transform;
+    }
+
+    .share:not(.shareable) button {
+      transform: translateX(50vw) translateX(-50%) translateY(-100%) translateY(-3em);
+    }
+
+    .share button:disabled {
+      background: #eee;
+      color: #999;
+      cursor: default;
+    }
+
     .hide {
       visibility: hidden;
     }
@@ -97,6 +123,7 @@
     .social {
       text-align: center;
       padding-bottom: 3em;
+      overflow: hidden;
     }
   </style>
 </head>
@@ -110,6 +137,9 @@
   </div>
   <div class="footer">
     <button id="more" class="hide">Generate more</button>
+  </div>
+  <div id="share" class="share">
+    <button id="share-quote" disabled>Share quote</button>
   </div>
   <div id="social" class="social">
     <div class="fb-like" data-href="https://bangkokipsum.app" data-layout="standard" data-action="like" data-size="small" data-show-faces="true"
