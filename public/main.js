@@ -3,6 +3,9 @@ function main() {
   fetch('idol64.json')
     .then(r => r.json())
     .then(startApp)
+  if (location.search.match(/compact/)) {
+    document.body.classList.add('is-compact')
+  }
 }
 
 function startApp(model) {
@@ -43,7 +46,7 @@ function startApp(model) {
    */
   function generateParagraph(onFinish) {
     const index = nextParagraphIndex++
-    const seed = ['แอบ', 'มอง']
+    const seed = 'แอบ มอง'.split(' ')
     const fixedHistory = index === 0 ? seed : []
     const generator = createGenerator(fixedHistory)
     const p = document.createElement('p')

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Bangkok Ipsum</title>
+  <meta property="og:url" content="https://bangkokipsum.app" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bangkok Ipsum" />
+  <meta property="og:description" content="สร้างข้อความภาษาไทยมั่วๆ" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@1.6.2/dist/base.min.css"
+    integrity="sha256-ssLR+FMaogZBsdMJRkhlQqndXF0uoEd5BArJz/ftia4="
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@1.6.2/dist/components.min.css"
+    integrity="sha256-8n6uuc2/UKJdr+2vLhORSI0Jc7bIY9nOpbZp2kmYZ8Y="
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.2.0/dist/typography.min.css"
+    integrity="sha256-Bzpo9sIAOqjJGDQ0XjfcgkXcGq01xeaudbvMA10ojDw="
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@1.6.2/dist/utilities.min.css"
+    integrity="sha256-1xEMVyf5Obn9PZAEuVHiXzL4+QSO8bevhpynv2LgQUg="
+    crossorigin="anonymous"
+  />
+</head>
+<body class="py-16">
+  <div class="prose prose-xl mx-auto">
+    <h1>เกี่ยวกับ Bangkok Ipsum</h1>
+
+    <p>
+      <a href="/"><strong>Bangkok Ipsum</strong></a> เป็นเว็บที่สามารถสร้างข้อความภาษาไทยมั่วๆ
+      เพื่อใช้เป็นเนื้อหาจำลองสำหรับงานออกแบบและงานพิมพ์
+      โดยโมเดลปัญญาประดิษฐ์ของเว็บ Bangkok Ipsum
+      ได้ทำการเทรนข้อมูลจากเนื้อเพลงของวงไอดอล 2 วง ที่ผลรวมของเลขท้ายชื่อวงเท่ากับ 64
+    </p>
+
+    <iframe style="width: 100%; height: 128px;" src="../?compact=1" frameborder="0" scrolling="no"></iframe>
+
+    <h2>เว็บนี้สร้างข้อความได้อย่างไร</h2>
+
+    <p>
+      เว็บนี้ทำงานโดยการวิเคราะห์ข้อความที่สร้างขึ้นมาก่อนหน้า
+      แล้วคาดเดาว่าจะต่อด้วยคำไหนดี ทำซ้ำๆ จนได้ความยาวที่ต้องการ
+      (คล้ายๆ เวลาที่เราใช้คีย์บอร์ดบนมือถือ แล้วมันช่วยเดาคำต่อไปได้เพื่อให้พิมพ์สะดวกขึ้น)
+      โดยใช้สิ่งที่เรียกว่า “n-gram model”
+    </p>
+
+    <p>
+      สมมุติว่าเริ่มต้นด้วยข้อความว่า <strong>“แอบมองเธอ”</strong><br>
+      ในโมเดลนี้เก็บข้อมูลว่าคำต่อไปสามารถเป็นคำอะไรได้บ้าง ตามตารางนี้:
+    </p>
+
+    <figure>
+      <figcaption>ตัวอย่างตารางแสดงตัวเลือกสำหรับการเลือกคำถัดไป กรณีที่ 3 คำก่อนหน้า คือ “แอบมองเธอ”</figcaption>
+      <img src="raw.png">
+    </figure>
+
+    <p>
+      เรานำโมเดลนี้มาใช้เพื่อคำนวณความน่าจะเป็นที่จะเลือกคำต่อไป<br>
+      หลังจากนั้นจึงเลือกโดยการสุ่มถ่วงน้ำหนัก
+    </p>
+
+    <figure>
+      <figcaption>ความน่าจะเป็นในการเลือกคำถัดไป กรณีที่ 3 คำก่อนหน้า คือ “แอบมองเธอ”</figcaption>
+      <img src="prob.png">
+    </figure>
+
+    <p>
+      สมมติว่าสุ่มได้คำว่า “นั้น”<br>
+      เราก็จะเอาข้อความ “แอบมองเธอนั้น” มาใช้ในการเลือกคำถัดไป<br>
+      ทำแบบนี้ไปเรื่อยๆ จนได้ประโยคความยาวที่ต้องการ
+    </p>
+
+    <blockquote>
+      <span class="text-3xl">แอบมองเธอนั้นต้องไปไกลแค่ลองเปิดใจให้โลกทั้งใบคืนมา</span>
+    </blockquote>
+
+    <p>
+      เมื่อนำข้อความที่สร้างขึ้นได้มาวิเคราะห์ดู<br>
+      จะพบว่า ข้อความนี้สร้างจากชิ้นส่วนเนื้อเพลงหลายๆ ส่วน มาต่อกัน<br>
+      คล้ายๆ กับเล่นเกมต่อเพลง
+    </p>
+
+    <figure>
+      <img src="song.png">
+    </figure>
+
+    <p>
+      จึงได้เป็นข้อความภาษาไทยที่ดูเหมือนจะมีความหมาย แต่ก็ไม่มีความหมายใดๆ ทั้งสิ้น
+    </p>
+
+    <h2>
+      โค้ด
+    </h2>
+
+    <p>
+      สามารถดู Source Code ของเว็บนี้ได้บน GitHub ที่<br>
+      <a href="https://github.com/dtinth/bangkokipsum">https://github.com/dtinth/bangkokipsum</a>
+    </p>
+  </div>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-59441941-5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-59441941-5');
+  </script>
+</body>
+</html>
