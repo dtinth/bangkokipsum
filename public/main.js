@@ -1,4 +1,5 @@
 // @ts-check
+/// <reference lib="es2020" />
 function main() {
   fetch('idol64.json')
     .then(r => r.json())
@@ -7,6 +8,8 @@ function main() {
     document.body.classList.add('is-compact')
   }
 }
+
+const wordsToMatch = []
 
 function startApp(model) {
   let paragraphsLeft = 3
@@ -51,10 +54,11 @@ function startApp(model) {
     const generator = createGenerator(fixedHistory)
     const p = document.createElement('p')
     let currentSentence
-    let data = ''
+    let data = []
     let sentenceCount = 0
     const desiredSentenceCount = 6 + Math.round(Math.random() * 3)
     document.querySelector('#result').appendChild(p)
+    let activeCandidates = []
     function frame() {
       let start = performance.now()
       for (;;) {
@@ -69,15 +73,31 @@ function startApp(model) {
     }
     function next() {
       const token = generator.generateNextToken()
+      if (wordsToMatch.length > 0) {
+        const candidatesThisTime = wordsToMatch.flatMap((t, i) => t === token && token !== ' ' ? [{ index: i, length: 1 }] : [])
+        activeCandidates = [
+          ...activeCandidates.flatMap((c) => wordsToMatch[c.index + 1] === token ? [{ index: c.index + 1, length: c.length + 1 }] : []),
+          ...candidatesThisTime
+        ]
+      }
+      const maxLength = Math.max(...activeCandidates.map(c => c.length), 0)
+
       if (!currentSentence) {
         currentSentence = document.createElement('span')
         p.appendChild(currentSentence)
       }
-      data += token
+      data.push({ token: token, length: maxLength })
       if (token === ' ') {
-        currentSentence.textContent = data
+        currentSentence.textContent = ''
+        for (const item of data) {
+          const span = document.createElement('span')
+          span.className = 'word'
+          span.dataset.heavy = item.length
+          span.textContent = item.token
+          currentSentence.appendChild(span)
+        }
         currentSentence = null
-        data = ''
+        data = []
         return ++sentenceCount >= desiredSentenceCount
       } else {
         currentSentence.appendChild(document.createTextNode('…'))
@@ -123,7 +143,26 @@ function startApp(model) {
     return { generateNextToken }
   }
 
+  const predict = (start = '', targetSentenceLength = 10, maxN = 10) => {
+    const startTokens = start ? start.split(' ').map(word => {
+      const index = model.words.indexOf(word)
+      if (index < 0) throw new Error(`Word not in model: ${word}`)
+      return index
+    }) : []
+    const sentenceLength = startTokens.length
+    const spaceWeightFactor = Math.pow(
+      Math.max(sentenceLength - targetSentenceLength, 0) / 2,
+      2
+    )
+    const weights = weightsFor([-1, ...startTokens], model, spaceWeightFactor)
+    const total = weights.reduce((a, [index, weight]) => a + weight, 0)
+    weights.sort(([_1, a], [_2, b]) => b - a)
+    return weights.slice(0, maxN).map(([index, weight]) => ({ word: model.words[index], weight: weight / total }))
+  }
+
   run()
+
+  Object.assign(window, { predict })
 }
 
 function weightsFor(history, model, spaceWeightFactor) {
